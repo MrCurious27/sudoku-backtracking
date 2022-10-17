@@ -1,0 +1,278 @@
+<html lang="en">
+
+
+<head>
+    <title>SUDOKU</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        table {
+            display: inline-flex;
+        }
+
+        td {
+            width: 25px;
+            height: 25px;
+            text-align: center;
+        }
+
+        input[type='number'],
+        input[type='text'] {
+            width: 50px;
+            height: 50px;
+            /* -moz-appearance: number; */
+            text-align: center;
+            font-size: 30px;
+        }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .default1 {
+            background-color: rgba(255, 99, 132, 0.2);
+        }
+
+        .default2 {
+            background-color: rgba(54, 162, 235, 0.2);
+        }
+
+        .default3 {
+            background-color: rgba(255, 206, 86, 0.2);
+        }
+
+        .default4 {
+            background-color: rgba(75, 192, 192, 0.4);
+        }
+
+        .default5 {
+            background-color: rgba(153, 102, 255, 0.2);
+        }
+
+        .default6 {
+            background-color: rgba(255, 159, 64, 0.2);
+        }
+
+        .contentHide {
+            display: none;
+        }
+
+        .selectedColor {
+            color: #2D6A4F;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="d-flex align-items-center justify-content-center h-100">
+        <div class="overflow-hidden p-1">
+            <div class="border">
+                <table class="border-right">
+                    <tbody>
+                        <tr>
+                            <td><input class="default1 sudokuinput" id="00" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                            <td><input class="default1 sudokuinput" id="01" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                            <td><input class="default1 sudokuinput" id="02" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                        </tr>
+                        <tr>
+                            <td><input class="default1 sudokuinput" id="10" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                            <td><input class="default1 sudokuinput" id="11" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                            <td><input class="default1 sudokuinput" id="12" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                        </tr>
+                        <tr>
+                            <td><input class="default1 sudokuinput" id="20" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                            <td><input class="default1 sudokuinput" id="21" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                            <td><input class="default1 sudokuinput" id="22" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="border-right">
+                    <tbody>
+                        <tr>
+                            <td><input class="default2 sudokuinput" id="03" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                            <td><input class="default2 sudokuinput" id="04" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                            <td><input class="default2 sudokuinput" id="05" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                        </tr>
+                        <tr>
+                            <td><input class="default2 sudokuinput" id="13" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                            <td><input class="default2 sudokuinput" id="14" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                            <td><input class="default2 sudokuinput" id="15" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                        </tr>
+                        <tr>
+                            <td><input class="default2 sudokuinput" id="23" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                            <td><input class="default2 sudokuinput" id="24" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                            <td><input class="default2 sudokuinput" id="25" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td><input class="default1 sudokuinput" id="06" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                            <td><input class="default1 sudokuinput" id="07" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                            <td><input class="default1 sudokuinput" id="08" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                        </tr>
+                        <tr>
+                            <td><input class="default1 sudokuinput" id="16" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                            <td><input class="default1 sudokuinput" id="17" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                            <td><input class="default1 sudokuinput" id="18" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                        </tr>
+                        <tr>
+                            <td><input class="default1 sudokuinput" id="26" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                            <td><input class="default1 sudokuinput" id="27" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                            <td><input class="default1 sudokuinput" id="28" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="border-left border-right">
+                <table class="border-right">
+                    <tbody>
+                        <tr>
+                            <td><input class="default2 sudokuinput" id="30" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                            <td><input class="default2 sudokuinput" id="31" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                            <td><input class="default2 sudokuinput" id="32" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                        </tr>
+                        <tr>
+                            <td><input class="default2 sudokuinput" id="40" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                            <td><input class="default2 sudokuinput" id="41" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                            <td><input class="default2 sudokuinput" id="42" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                        </tr>
+                        <tr>
+                            <td><input class="default2 sudokuinput" id="50" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                            <td><input class="default2 sudokuinput" id="51" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                            <td><input class="default2 sudokuinput" id="52" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="border-right">
+                    <tbody>
+                        <tr>
+                            <td><input class="default1 sudokuinput" id="33" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                            <td><input class="default1 sudokuinput" id="34" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                            <td><input class="default1 sudokuinput" id="35" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                        </tr>
+                        <tr>
+                            <td><input class="default1 sudokuinput" id="43" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                            <td><input class="default1 sudokuinput" id="44" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                            <td><input class="default1 sudokuinput" id="45" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                        </tr>
+                        <tr>
+                            <td><input class="default1 sudokuinput" id="53" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                            <td><input class="default1 sudokuinput" id="54" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                            <td><input class="default1 sudokuinput" id="55" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td><input class="default2 sudokuinput" id="36" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                            <td><input class="default2 sudokuinput" id="37" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                            <td><input class="default2 sudokuinput" id="38" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                        </tr>
+                        <tr>
+                            <td><input class="default2 sudokuinput" id="46" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                            <td><input class="default2 sudokuinput" id="47" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                            <td><input class="default2 sudokuinput" id="48" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                        </tr>
+                        <tr>
+                            <td><input class="default2 sudokuinput" id="56" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                            <td><input class="default2 sudokuinput" id="57" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                            <td><input class="default2 sudokuinput" id="58" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="border">
+                <table class="border-right">
+                    <tbody>
+                        <tr>
+                            <td><input class="default1 sudokuinput" id="60" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                            <td><input class="default1 sudokuinput" id="61" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                            <td><input class="default1 sudokuinput" id="62" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                        </tr>
+                        <tr>
+                            <td><input class="default1 sudokuinput" id="70" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                            <td><input class="default1 sudokuinput" id="71" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                            <td><input class="default1 sudokuinput" id="72" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                        </tr>
+                        <tr>
+                            <td><input class="default1 sudokuinput" id="80" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                            <td><input class="default1 sudokuinput" id="81" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                            <td><input class="default1 sudokuinput" id="82" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="border-right">
+                    <tbody>
+                        <tr>
+                            <td><input class="default2 sudokuinput" id="63" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                            <td><input class="default2 sudokuinput" id="64" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                            <td><input class="default2 sudokuinput" id="65" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                        </tr>
+                        <tr>
+                            <td><input class="default2 sudokuinput" id="73" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                            <td><input class="default2 sudokuinput" id="74" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                            <td><input class="default2 sudokuinput" id="75" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                        </tr>
+                        <tr>
+                            <td><input class="default2 sudokuinput" id="83" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                            <td><input class="default2 sudokuinput" id="84" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                            <td><input class="default2 sudokuinput" id="85" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td><input class="default1 sudokuinput" id="66" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                            <td><input class="default1 sudokuinput" id="67" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                            <td><input class="default1 sudokuinput" id="68" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                        </tr>
+                        <tr>
+                            <td><input class="default1 sudokuinput" id="76" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                            <td><input class="default1 sudokuinput" id="77" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                            <td><input class="default1 sudokuinput" id="78" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                        </tr>
+                        <tr>
+                            <td><input class="default1 sudokuinput" id="86" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                            <td><input class="default1 sudokuinput" id="87" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                            <td><input class="default1 sudokuinput" id="88" type="text" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <br>
+            <div id="noSolution" class="contentHide">
+
+                <span>No Solution for this given Sudoku</span>
+            </div>
+            <div class="">
+
+                <div class="range">
+                    <label class="form-label" for="customRange2">speed</label>
+                    <input id="speed" type="range" class="form-range" min="1" max="200" id="customRange2" value="50" />
+                </div>
+            </div>
+            <br>
+            <button id="start" type="button" name="start">Start</button>
+            <button id="reset" type="button" name="reset">Reset</button>
+        </div>
+    </div>
+</body>
+
+
+<script src="sudoku.js" charset="utf-8"></script>
+
+</html>
